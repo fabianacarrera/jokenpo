@@ -5,7 +5,7 @@
     </div>
     <div class="card-content">
       <template v-if="template">
-        <div class="card-content-painel">
+        <div class="card-content-painel-if">
           <p>
             <font-awesome-icon
               class="gamepad"
@@ -17,13 +17,13 @@
         </div>
       </template>
       <template v-else>
-        <div class="card-content-painel">
+        <div class="card-content-painel-else">
           <label>
-            {{ player }}
+            <font-awesome-icon :icon="playerIcon" class="player" />
           </label>
-          <label> VS </label>
+          <label class="versus"> VS </label>
           <label>
-            {{ computer }}
+            <font-awesome-icon :icon="computerIcon" class="computer" />
           </label>
         </div>
       </template>
@@ -36,7 +36,7 @@
         {{ buttonLabel }}
       </button>
       <div class="card-content-options">
-        <div class="card-options-icons">
+        <div class="card-options-icons" :class="disabled">
           <div class="icon-border clickEffect" @click="clickButton('rock')">
             <font-awesome-icon icon="fa-solid fa-hand-fist" />
           </div>
@@ -74,6 +74,7 @@ export default {
   },
   data: function () {
     return {
+      options: ["rock", "paper", "scissors"],
       results: {
         rock: {
           rock: 2,
@@ -91,7 +92,11 @@ export default {
           scissors: 2,
         },
       },
-      options: ["rock", "paper", "scissors"],
+      resultIcons: {
+        rock: "fa-solid fa-hand-fist",
+        paper: "fa-solid fa-hand",
+        scissors: "fa-solid fa-hand-scissors",
+      },
       clickedButton: false,
       player: "",
       computer: "",
@@ -101,6 +106,7 @@ export default {
       playerIcon: "",
       computerIcon: "",
       template: true,
+      disabled: "",
     };
   },
   methods: {
@@ -111,6 +117,9 @@ export default {
       this.computer = this.options[random];
       this.player = player;
       this.final = this.results[this.player][this.computer];
+      this.playerIcon = this.resultIcons[this.player];
+      this.computerIcon = this.resultIcons[this.computer];
+      this.disabled = "disabled";
 
       console.log(this.random, this.final, this.player, this.final);
 
@@ -118,17 +127,20 @@ export default {
         case 0:
           this.classCard = "card lose-border";
           this.classHeader = "card-header lose-background";
-          this.titleMessage = "Você Perdeu!";
+          // eslint-disable-next-line vue/no-mutating-props
+          this.title = "Você Perdeu! 🚫";
           break;
         case 1:
           this.classCard = "card win-border";
           this.classHeader = "card-header win-background";
-          this.titleMessage = "Você Venceu!";
+          // eslint-disable-next-line vue/no-mutating-props
+          this.title = "Você Venceu! ✨";
           break;
         case 2:
           this.classCard = "card tie-border";
           this.classHeader = "card-header tie-background";
-          this.titleMessage = "Empate";
+          // eslint-disable-next-line vue/no-mutating-props
+          this.title = "Empate! 🔁";
       }
 
       this.template = false;
@@ -138,6 +150,9 @@ export default {
       this.clickedButton = false;
       this.classCard = "card default-border";
       this.classHeader = "card-header default-background";
+      // eslint-disable-next-line vue/no-mutating-props
+      this.title = "Jo ken PÔ !";
+      this.disabled = "";
     },
   },
 };
@@ -145,6 +160,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.disabled {
+  pointer-events: none;
+}
+
 .default-border {
   border-width: 2px;
   border-style: solid;
@@ -218,9 +237,18 @@ export default {
   height: 350px;
 }
 
-.card-content-painel {
+.card-content-painel-if {
   text-align: center;
   font-size: 20px;
+}
+
+.card-content-painel-else {
+  text-align: center;
+  font-size: 75px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
 }
 
 .gamepad {
@@ -239,6 +267,23 @@ p {
   -webkit-text-fill-color: transparent;
   font-weight: bold;
   padding: 5px;
+}
+
+.player {
+  color: #961ef4;
+}
+
+.computer {
+  color: #e35858;
+}
+
+.versus {
+  width: 60px;
+  font-family: "Knewave", cursive;
+  font-size: 50px;
+  background: linear-gradient(84.45deg, #961ef4 0%, #e35858 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .card-content-button {

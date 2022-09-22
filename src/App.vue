@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MainCard
-      :title="titleMessage"
+      :title="title"
       :painelMessage="painelMessage"
       :buttonLabel="buttonLabel"
     >
@@ -19,7 +19,7 @@ export default {
   },
   data: function () {
     return {
-      titleMessage: "Jo ken PÔ !",
+      title: "Jo ken PÔ !",
       painelMessage: "Faça sua jogada!",
       buttonLabel: "recomeçar",
     };
@@ -29,6 +29,7 @@ export default {
 
 <style>
 @import url("https://rsms.me/inter/inter.css");
+@import url("https://fonts.googleapis.com/css2?family=Knewave&display=swap");
 
 html {
   font-family: "Inter", sans-serif;
