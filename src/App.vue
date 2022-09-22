@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <MainCard title="Jo ken PÔ !"></MainCard>
+    <MainCard
+      :title="titleMessage"
+      :painelMessage="painelMessage"
+      :buttonLabel="buttonLabel"
+    >
+    </MainCard>
   </div>
 </template>
 
@@ -11,6 +16,13 @@ export default {
   name: "App",
   components: {
     MainCard,
+  },
+  data: function () {
+    return {
+      titleMessage: "Jo ken PÔ !",
+      painelMessage: "Faça sua jogada!",
+      buttonLabel: "recomeçar",
+    };
   },
 };
 </script>
