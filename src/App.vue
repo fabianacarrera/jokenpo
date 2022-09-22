@@ -21,7 +21,7 @@ export default {
     return {
       title: "Jo ken PÔ !",
       painelMessage: "Faça sua jogada!",
-      buttonLabel: "recomeçar",
+      buttonLabel: "Recomeçar",
     };
   },
 };
